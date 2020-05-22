@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Pane prefHeight="500.0" prefWidth="1000.0">
+            <children>
+                <TextField fx:id="logInText" alignment="TOP_CENTER" layoutX="14.0" layoutY="405.0" promptText="To" />
+                <PasswordField fx:id="passwordText" alignment="TOP_CENTER" layoutX="181.0" layoutY="405.0" prefHeight="25.0" prefWidth="646.0" promptText="Massage" />
+                <Button layoutX="837.0" layoutY="405.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="25.0" prefWidth="149.0" text="Send" />
+                <Label fx:id="instructionText" alignment="CENTER" layoutX="426.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="Enter the following" textAlignment="CENTER" />
+                <Button layoutX="809.0" layoutY="34.0" mnemonicParsing="false" onAction="#singUpButton" prefHeight="25.0" prefWidth="149.0" text="Log Out" />
+                <Label alignment="TOP_CENTER" layoutX="597.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="or" textAlignment="CENTER" />
+                <Label alignment="TOP_CENTER" layoutX="17.0" layoutY="27.0" prefHeight="39.0" prefWidth="407.0" text="NICKNAME - FULL NAME" textAlignment="CENTER" textFill="#9e2828">
+                    <font>
+                        <Font name="Droid Sans Bold" size="32.0" />
+                    </font>
+                </Label>
+            <ScrollPane layoutX="20.0" layoutY="102.0" prefHeight="262.0" prefWidth="960.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <Button layoutX="482.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Log" />
+            <Button layoutX="645.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Chat" />
+            </children>
+        </Pane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+
+
+</GridPane>

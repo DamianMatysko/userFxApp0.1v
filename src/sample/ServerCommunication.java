@@ -9,6 +9,9 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class ServerCommunication {
+    String fname;
+    String lname;
+    String login;
     String token;
 
     public void login(String login, String password) throws IOException {
@@ -40,8 +43,16 @@ public class ServerCommunication {
 
 
                 JSONObject jsonResponze = new JSONObject(response.toString());
+                fname=jsonResponze.getString("fname");
+                lname=jsonResponze.getString("lname");
+                login=jsonResponze.getString("login");
                 token=jsonResponze.getString("token");
-                System.out.println(token);
+
+
+
+
+
+
 
             } catch (IOException e) {
                 e.printStackTrace();
