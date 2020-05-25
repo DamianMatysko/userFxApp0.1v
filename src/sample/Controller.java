@@ -39,4 +39,8 @@ public class Controller {
 
     public void singUpButton(ActionEvent actionEvent) {
     }
+
+    public void logOutButton(ActionEvent actionEvent) throws IOException {
+        serverCommunication.logout();
+    }
 }
