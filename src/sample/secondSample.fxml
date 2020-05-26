@@ -11,10 +11,10 @@
                 <TextField fx:id="logInText" alignment="TOP_CENTER" layoutX="14.0" layoutY="405.0" promptText="To" />
                 <PasswordField fx:id="passwordText" alignment="TOP_CENTER" layoutX="181.0" layoutY="405.0" prefHeight="25.0" prefWidth="646.0" promptText="Massage" />
                 <Button layoutX="837.0" layoutY="405.0" mnemonicParsing="false" onAction="#sendButton" prefHeight="25.0" prefWidth="149.0" text="Send" />
-                <Label fx:id="instructionText" alignment="CENTER" layoutX="426.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="Enter the following" textAlignment="CENTER" />
-                <Button layoutX="809.0" layoutY="34.0" mnemonicParsing="false" onAction="#logoutMethod" prefHeight="25.0" prefWidth="149.0" text="Log Out" />
+                <Label fx:id="consoleText" alignment="CENTER" layoutX="426.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="Enter the following" textAlignment="CENTER" />
+                <Button fx:id="logoutButton" layoutX="809.0" layoutY="34.0" mnemonicParsing="false" onAction="#logoutMethod" prefHeight="25.0" prefWidth="149.0" text="Log Out" />
                 <Label alignment="TOP_CENTER" layoutX="597.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="or" textAlignment="CENTER" />
-                <Label alignment="TOP_CENTER" layoutX="17.0" layoutY="27.0" prefHeight="39.0" prefWidth="407.0" text="NICKNAME - FULL NAME" textAlignment="CENTER" textFill="#9e2828">
+                <Label fx:id="nameLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="27.0" prefHeight="39.0" prefWidth="407.0" text="NICKNAME - FULL NAME" textAlignment="CENTER" textFill="#9e2828">
                     <font>
                         <Font name="Droid Sans Bold" size="32.0" />
                     </font>

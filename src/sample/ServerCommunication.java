@@ -14,6 +14,22 @@ public class ServerCommunication {
     private static String login;
     private static String token;
 
+    public String getLname() {
+        return lname;
+    }
+
+    public  String getFname() {
+        return fname;
+    }
+
+    public  String getLogin() {
+        return login;
+    }
+
+    public  String getToken() {
+        return token;
+    }
+
 
     public void login(String login, String password) throws IOException {
         String stringURL = "http://localhost:8080/login";
