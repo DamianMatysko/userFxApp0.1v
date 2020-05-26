@@ -9,13 +9,10 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 
 public class ServerCommunication {
-    private String fname;
-    private String lname;
-    private String login;
-    private String token;
-
-
-
+    private static String lname;
+    private static String fname;
+    private static String login;
+    private static String token;
 
 
     public void login(String login, String password) throws IOException {
@@ -35,7 +32,7 @@ public class ServerCommunication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        String responseArchiver = null;
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
@@ -43,15 +40,15 @@ public class ServerCommunication {
             while ((responseLine = br.readLine()) != null) {
                 response.append(responseLine.trim());
             }
-            System.out.println(response.toString());
 
+            responseArchiver = response.toString();
 
-            JSONObject jsonResponze = new JSONObject(response.toString());
+            JSONObject jsonResponze = new JSONObject(responseArchiver);
             this.fname = jsonResponze.getString("fname");
             this.lname = jsonResponze.getString("lname");
             this.login = jsonResponze.getString("login");
             this.token = jsonResponze.getString("token");
-            System.out.println(jsonResponze.getString("token"));
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,6 +58,7 @@ public class ServerCommunication {
 
     public void logout() throws IOException {
         //String stringURL ="http://localhost:8080/logout";
+
         String stringURL = "http://localhost:8080/logout?token=" + token;
         URL url = new URL(stringURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -89,16 +87,10 @@ public class ServerCommunication {
             }
             System.out.println(response.toString());
 
-
-            JSONObject jsonResponze = new JSONObject(response.toString());
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
     }
-
 
 }
