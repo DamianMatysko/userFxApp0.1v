@@ -50,6 +50,7 @@ public class ServerCommunication {
             this.token = jsonResponze.getString("token");
 
 
+            System.out.println("login");
         } catch (IOException e) {
             e.printStackTrace();
         }

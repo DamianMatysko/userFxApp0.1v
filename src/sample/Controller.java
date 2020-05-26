@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,11 +19,19 @@ public class Controller {
     public TextField logInText;
     public PasswordField passwordText;
     public Label instructionText;
+    public Button singupButton;
+    public Button loginButton;
 
     ServerCommunication serverCommunication = new ServerCommunication();
 
 
-    public void logInButton(ActionEvent actionEvent) throws IOException, IOException, InterruptedException {
+
+    public void singUpButton(ActionEvent actionEvent) {
+    }
+
+
+
+    public void loginMethod(ActionEvent actionEvent) throws IOException {
         serverCommunication.login(logInText.getText(),passwordText.getText());
 
 
@@ -34,13 +43,17 @@ public class Controller {
         stage.initStyle(StageStyle.TRANSPARENT);
         //Sfxml sfxml=fxmlLoader.getController();
         //sfxml.initData(stage);
-        stage.showAndWait();
+        stage.show();
     }
 
-    public void singUpButton(ActionEvent actionEvent) {
+    public void singupMethod(ActionEvent actionEvent) {
     }
 
-    public void logOutButton(ActionEvent actionEvent) throws IOException {
+    public void sendButton(ActionEvent actionEvent) {
+    }
+
+    public void logoutMethod(ActionEvent actionEvent) throws IOException {
         serverCommunication.logout();
+
     }
 }

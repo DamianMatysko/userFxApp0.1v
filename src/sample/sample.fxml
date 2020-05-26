@@ -10,9 +10,9 @@
             <children>
                 <TextField fx:id="logInText" alignment="TOP_CENTER" layoutX="51.0" layoutY="119.0" promptText="Log In" />
                 <PasswordField fx:id="passwordText" alignment="TOP_CENTER" layoutX="51.0" layoutY="155.0" promptText="Password" />
-                <Button layoutX="50.0" layoutY="189.0" mnemonicParsing="false" onAction="#logInButton" prefHeight="25.0" prefWidth="149.0" text="Log In" />
+                <Button fx:id="loginButton" layoutX="50.0" layoutY="189.0" mnemonicParsing="false" onAction="#loginMethod" prefHeight="25.0" prefWidth="149.0" text="Log In" />
                 <Label fx:id="instructionText" alignment="CENTER" layoutX="51.0" layoutY="93.0" prefHeight="17.0" prefWidth="149.0" text="Enter the following" textAlignment="CENTER" />
-                <Button layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#singUpButton" prefHeight="25.0" prefWidth="149.0" text="Sign Up " />
+                <Button fx:id="singupButton" layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#singupMethod" prefHeight="25.0" prefWidth="149.0" text="Sign Up " />
                 <Label alignment="TOP_CENTER" layoutX="51.0" layoutY="214.0" prefHeight="17.0" prefWidth="149.0" text="or" textAlignment="CENTER" />
                 <Label alignment="TOP_CENTER" layoutX="50.0" layoutY="34.0" prefHeight="17.0" prefWidth="149.0" text="ITBANK" textAlignment="CENTER" textFill="#9e2828">
                     <font>
