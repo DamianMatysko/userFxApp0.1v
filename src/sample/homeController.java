@@ -1,10 +1,7 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,6 +14,9 @@ public class homeController {
     public Label nameLabel;
 
     private static ServerCommunication serverCommunication=null;
+    public ScrollPane scrollPane;
+    public TextField messageField;
+    public TextField toUserField;
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
         homeController.serverCommunication = serverCommunication;
@@ -31,5 +31,9 @@ public class homeController {
     }
 
     public void sendButton(ActionEvent actionEvent) {
+    }
+
+    public void showLogs(ActionEvent actionEvent) throws IOException {
+        consoleText.setText(serverCommunication.log());
     }
 }

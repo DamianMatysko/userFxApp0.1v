@@ -26,7 +26,7 @@ public class LoginController {
     }
 
     public void loginMethod(ActionEvent actionEvent) throws IOException {
-        if (serverCommunication.login(logInText.getText(), passwordText.getText())==false){
+        if (!serverCommunication.login(logInText.getText(), passwordText.getText())){
             instructionText.setText("wrong login or password");
             return;
         }

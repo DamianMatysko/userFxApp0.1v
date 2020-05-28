@@ -44,7 +44,6 @@ public class ServerCommunication {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String responseArchiver = null;
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
             StringBuilder response = new StringBuilder();
@@ -73,9 +72,14 @@ public class ServerCommunication {
     }
 
     public void logout() throws IOException {
-
         String response = postOperation("logout?token=" + token, "{login: " + login + "}");
         System.out.println(response);
+    }
+
+    public String log() throws IOException {
+        String response = postOperation("log?token=" + token, "{login:" + login + "}");
+        System.out.println(response);
+        return response;
     }
 
 }
