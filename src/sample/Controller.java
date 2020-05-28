@@ -44,7 +44,7 @@ public class Controller {
     public void loginMethod(ActionEvent actionEvent) throws IOException {
         serverCommunication.login(logInText.getText(), passwordText.getText());
 
-//
+//aa
         System.out.println((serverCommunication.getLogin() + " - " + serverCommunication.getFname() + " " + serverCommunication.getLname()).toUpperCase());
         instructionText.setText((serverCommunication.getLogin() + " - " + serverCommunication.getFname() + " " + serverCommunication.getLname()).toUpperCase());
         consoleText.setText((serverCommunication.getLogin() + " - " + serverCommunication.getFname() + " " + serverCommunication.getLname()).toUpperCase());
