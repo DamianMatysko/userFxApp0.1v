@@ -26,7 +26,6 @@
             </ScrollPane>
             <Button layoutX="482.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Log" />
             <Button layoutX="645.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Chat" />
-            <Label fx:id="testLabel" layoutX="193.0" layoutY="73.0" text="Label" />
             </children>
         </Pane>
     </children>
