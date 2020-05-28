@@ -31,12 +31,6 @@ public class Controller {
         serverCommunication.login(logInText.getText(), passwordText.getText());
 
 
-
-
-
-
-
-
         //Load second scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("secondSample.fxml"));
         Parent root = loader.load();
