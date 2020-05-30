@@ -9,9 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
 
 public class LoginController {
     public TextField logInText;
@@ -22,8 +20,6 @@ public class LoginController {
 
     private static ServerCommunication serverCommunication = new ServerCommunication();
 
-    public void singUpButton(ActionEvent actionEvent) {
-    }
 
     public void loginMethod(ActionEvent actionEvent) throws IOException {
         if (!serverCommunication.login(logInText.getText(), passwordText.getText())){
@@ -52,12 +48,27 @@ public class LoginController {
         Stage window = (Stage) loginButton.getScene().getWindow();
         window.close();
     }
+    public void singupMethod(ActionEvent actionEvent) throws IOException {
+        //Load second scene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registrationSample.fxml"));
+        Parent root = loader.load();
 
-    public void singupMethod(ActionEvent actionEvent) {
+        //Get controller of scene2
+        registrationController registrationController = loader.getController();
+        //Pass whatever data you want. You can have multiple method calls here
+        registrationController.setServerCommunication(serverCommunication);
 
+        //Show scene 2 in new window
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 300, 275));
+        stage.setTitle("ITBANK");
+        stage.show();
+
+        //stage.initStyle(StageStyle.TRANSPARENT);
+
+        Stage window = (Stage) singupButton.getScene().getWindow();
+        window.close();
     }
-
-
 
 
 }

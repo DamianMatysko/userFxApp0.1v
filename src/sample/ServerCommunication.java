@@ -31,6 +31,7 @@ public class ServerCommunication {
     }
 
     public String postOperation(String stringURL, String jsonInputString) throws IOException {
+        InputStream inputStream = null;
         URL url = new URL("http://localhost:8080/" + stringURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
@@ -42,7 +43,7 @@ public class ServerCommunication {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         } catch (IOException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
@@ -57,10 +58,19 @@ public class ServerCommunication {
 
     public boolean login(String login, String password) throws IOException {
         String responseArchiver = postOperation("login", "{login: " + login + ", password: " + password + "}");
-
+        System.out.println(responseArchiver);
         if (responseArchiver.equals("wrong login or password")) {
             return false;
         }
+        if (responseArchiver.equals("\"error\":\"too many inputs\"")) {
+            return false;
+        }
+        if (responseArchiver.equals("\"error\":\"arealy login\"")) {
+            return false;
+        }
+
+
+
         JSONObject jsonResponze = new JSONObject(responseArchiver);
         this.fname = jsonResponze.getString("fname");
         this.lname = jsonResponze.getString("lname");
@@ -78,6 +88,26 @@ public class ServerCommunication {
 
     public String log() throws IOException {
         String response = postOperation("log?token=" + token, "{login:" + login + "}");
+        System.out.println(response);
+        return response;
+    }
+
+    public String getMessages() throws IOException {
+        String response = postOperation("messages?token=" + token, "{login:" + login + "}");
+        System.out.println(response);
+        return response;
+    }
+
+    public String sendMessage(String to, String message) throws IOException {
+        String response = postOperation("messages?token=" + token, "{ from:" + login + ", to:" + to + ", message:" + message + "}");
+        System.out.println(response);
+        return response;
+    }
+
+    public String signup(String login, String password, String fname, String lname) throws IOException {
+        String response = postOperation("signup", "{fname:"+fname+", lname:"+lname+",login: "+login+",password: "+password+"}");
+
+
         System.out.println(response);
         return response;
     }

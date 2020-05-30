@@ -12,11 +12,11 @@ public class homeController {
     public Button logoutButton;
     public PasswordField passwordText;
     public Label nameLabel;
-
-    private static ServerCommunication serverCommunication=null;
-    public ScrollPane scrollPane;
     public TextField messageField;
     public TextField toUserField;
+
+    private static ServerCommunication serverCommunication=null;
+
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
         homeController.serverCommunication = serverCommunication;
