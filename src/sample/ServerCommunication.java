@@ -42,6 +42,11 @@ public class ServerCommunication {
         try (OutputStream os = con.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
+            System.out.println(con.getResponseCode()+"ASDFJHGFJKGKHO::GYIYF"+con.getErrorStream());
+            if (con.getErrorStream()!=null){ //todo chane on error messages
+                System.out.println("error");
+                return con.getErrorStream().toString();
+            }
         } catch (IOException e) {
            e.printStackTrace();
         }
@@ -59,13 +64,16 @@ public class ServerCommunication {
     public boolean login(String login, String password) throws IOException {
         String responseArchiver = postOperation("login", "{login: " + login + ", password: " + password + "}");
         System.out.println(responseArchiver);
-        if (responseArchiver.equals("wrong login or password")) {
+        if (responseArchiver.equals("User doesn't exist")) {
             return false;
         }
-        if (responseArchiver.equals("\"error\":\"too many inputs\"")) {
+        if (responseArchiver.equals("Too many inputs")) {
             return false;
         }
-        if (responseArchiver.equals("\"error\":\"arealy login\"")) {
+        if (responseArchiver.equals("Arealy login")) {
+            return false;
+        }
+        if (responseArchiver.equals("Wrong password")) {
             return false;
         }
 
@@ -99,15 +107,19 @@ public class ServerCommunication {
     }
 
     public String sendMessage(String to, String message) throws IOException {
-        String response = postOperation("messages?token=" + token, "{ from:" + login + ", to:" + to + ", message:" + message + "}");
+        String response = postOperation("message/new?token=" + token, "{ from:" + login + ", to:" + to + ", message:" + message + "}");
         System.out.println(response);
         return response;
     }
 
     public String signup(String login, String password, String fname, String lname) throws IOException {
         String response = postOperation("signup", "{fname:"+fname+", lname:"+lname+",login: "+login+",password: "+password+"}");
+        System.out.println(response);
+        return response;
+    }
 
-
+    public String changePassword(String login, String password, String oldpassword, String newpassword) throws IOException {
+        String response = postOperation("/changepassword?token="+token, "{login:"+login+", oldpassword:"+oldpassword+", newpassword:"+newpassword+"}");
         System.out.println(response);
         return response;
     }

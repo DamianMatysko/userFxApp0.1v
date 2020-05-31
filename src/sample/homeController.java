@@ -2,20 +2,24 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class homeController {
-    public TextField logInText;
+
     public Label consoleText;
     public Button logoutButton;
-    public PasswordField passwordText;
+    ;
     public Label nameLabel;
     public TextField messageField;
     public TextField toUserField;
+    public Text textForLogAndMes;
 
     private static ServerCommunication serverCommunication=null;
+
 
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
@@ -30,10 +34,23 @@ public class homeController {
         stage.close();
     }
 
-    public void sendButton(ActionEvent actionEvent) {
+    public void sendButton(ActionEvent actionEvent) throws IOException {
+        serverCommunication.sendMessage(toUserField.getText(), messageField.getText());
+        consoleText.setText("The message was sent");
     }
 
     public void showLogs(ActionEvent actionEvent) throws IOException {
-        consoleText.setText(serverCommunication.log());
+        textForLogAndMes.setText(serverCommunication.log());
+    }
+
+    public void showMessages(ActionEvent actionEvent) throws IOException, InterruptedException {
+        //for (;;) {
+
+            textForLogAndMes.setText(serverCommunication.getMessages());
+            //
+        //}
+    }
+
+    public void changePassword(ActionEvent actionEvent) {
     }
 }

@@ -8,20 +8,23 @@
     <children>
         <Pane prefHeight="500.0" prefWidth="1000.0">
             <children>
-                <TextField fx:id="toUserField" alignment="TOP_CENTER" layoutX="14.0" layoutY="405.0" promptText="To" />
-                <TextField fx:id="messageField" alignment="TOP_CENTER" layoutX="180.0" layoutY="405.0" prefHeight="25.0" prefWidth="643.0" promptText="Message" />
-                <Button layoutX="837.0" layoutY="405.0" mnemonicParsing="false" onAction="#sendButton" prefHeight="25.0" prefWidth="149.0" text="Send" />
-                <Label fx:id="consoleText" alignment="CENTER" layoutX="426.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="Enter the following" textAlignment="CENTER" />
-                <Button fx:id="logoutButton" layoutX="809.0" layoutY="34.0" mnemonicParsing="false" onAction="#logoutMethod" prefHeight="25.0" prefWidth="149.0" text="Log Out" />
-                <Label alignment="TOP_CENTER" layoutX="597.0" layoutY="457.0" prefHeight="17.0" prefWidth="149.0" text="or" textAlignment="CENTER" />
-                <Label fx:id="nameLabel" alignment="TOP_CENTER" layoutX="17.0" layoutY="27.0" prefHeight="39.0" prefWidth="407.0" text="NICKNAME - FULL NAME" textAlignment="CENTER" textFill="#9e2828">
+                <TextField fx:id="toUserField" alignment="TOP_CENTER" layoutX="869.0" layoutY="422.0" prefHeight="25.0" prefWidth="117.0" promptText="To" />
+                <TextField fx:id="messageField" alignment="CENTER" layoutX="14.0" layoutY="419.0" prefHeight="60.0" prefWidth="850.0" promptText="Message" />
+                <Button layoutX="869.0" layoutY="452.0" mnemonicParsing="false" onAction="#sendButton" prefHeight="25.0" prefWidth="117.0" text="Send" />
+                <Label fx:id="consoleText" alignment="CENTER" layoutX="526.0" layoutY="51.0" prefHeight="17.0" prefWidth="459.0" text="Enter the following" textAlignment="CENTER" />
+                <Button fx:id="logoutButton" layoutX="877.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutMethod" prefHeight="25.0" prefWidth="110.0" text="Log Out" />
+                <Label fx:id="nameLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="20.0" prefHeight="39.0" prefWidth="480.0" text="NICKNAME - FULL NAME" textFill="#9e2828">
                     <font>
                         <Font name="Droid Sans Bold" size="32.0" />
                     </font>
                 </Label>
-            <Button layoutX="482.0" layoutY="34.0" mnemonicParsing="false" onAction="#showLogs" prefHeight="25.0" prefWidth="149.0" text="Log" />
-            <Button layoutX="645.0" layoutY="34.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Chat" />
-            <TextFlow layoutX="44.0" layoutY="117.0" prefHeight="200.0" prefWidth="200.0" />
+            <Button layoutX="520.0" layoutY="14.0" mnemonicParsing="false" onAction="#showLogs" prefHeight="25.0" prefWidth="110.0" text="Log" />
+            <Button layoutX="638.0" layoutY="14.0" mnemonicParsing="false" onAction="#showMessages" prefHeight="25.0" prefWidth="110.0" text="Chat" />
+            <Button layoutX="756.0" layoutY="14.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="25.0" prefWidth="110.0" text="Change Password" />
+            <VBox layoutX="15.0" layoutY="69.0" prefHeight="345.0" prefWidth="972.0">
+               <children>
+                  <Text fx:id="textForLogAndMes" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="927.13671875" />
+               </children></VBox>
             </children>
         </Pane>
     </children>
