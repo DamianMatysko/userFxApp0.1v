@@ -20,7 +20,8 @@
                 </Label>
             <Button layoutX="520.0" layoutY="14.0" mnemonicParsing="false" onAction="#showLogs" prefHeight="25.0" prefWidth="110.0" text="Log" />
             <Button layoutX="638.0" layoutY="14.0" mnemonicParsing="false" onAction="#showMessages" prefHeight="25.0" prefWidth="110.0" text="Chat" />
-            <Button layoutX="756.0" layoutY="14.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="25.0" prefWidth="110.0" text="Change Password" />
+            <Button fx:id="changePassButton" layoutX="756.0" layoutY="14.0" mnemonicParsing="false" onAction="#changePassword" prefHeight="25.0" prefWidth="110.0" text="Change Password" />
+            <Button fx:id="deleteMessages" layoutX="776.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteMesages" prefHeight="25.0" prefWidth="110.0" text="Delete messages" />
             <VBox layoutX="15.0" layoutY="69.0" prefHeight="345.0" prefWidth="972.0">
                <children>
                   <Text fx:id="textForLogAndMes" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="927.13671875" />

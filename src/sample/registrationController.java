@@ -22,7 +22,6 @@ public class registrationController {
 
     private static ServerCommunication serverCommunication=null;
 
-
     public void setServerCommunication(ServerCommunication serverCommunication) {
         registrationController.serverCommunication = serverCommunication;
     }
