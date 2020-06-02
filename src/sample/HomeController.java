@@ -9,9 +9,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-public class homeController {
+public class HomeController {
 
     public Label consoleText;
     public Button logoutButton;
@@ -22,15 +21,20 @@ public class homeController {
     public Button changePassButton;
     public Button deleteMessages;
 
-    private static ServerCommunication serverCommunication=null;
+    ChatRefresher chatRefresher = null;
+    private static ServerCommunication serverCommunication = null;
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
-        homeController.serverCommunication = serverCommunication;
+        HomeController.serverCommunication = serverCommunication;
         this.nameLabel.setText((serverCommunication.getLogin() + " - " + serverCommunication.getFname() + " " + serverCommunication.getLname()).toUpperCase());
     }
 
     public void logoutMethod(ActionEvent actionEvent) throws IOException {
         serverCommunication.logout();
+
+
+        chatRefresher.killThread();
+
 
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         stage.close();
@@ -41,14 +45,18 @@ public class homeController {
         consoleText.setText("The message was sent");
     }
 
-    public void showLogs(ActionEvent actionEvent) throws IOException {
+    public void showLogs(ActionEvent actionEvent) throws IOException, InterruptedException {
+
+        chatRefresher.killThread();
         textForLogAndMes.setText(serverCommunication.log());
-    }
+}
 
     public void showMessages(ActionEvent actionEvent) throws IOException, InterruptedException {
-        //for (;;) {
-            textForLogAndMes.setText(serverCommunication.getMessages());
-        //}
+        if (chatRefresher == null || chatRefresher.isInterrupted() ) {
+            chatRefresher = new ChatRefresher(textForLogAndMes, serverCommunication);
+            chatRefresher.start();
+        }
+        chatRefresher.interrupt();
     }
 
     public void changePassword(ActionEvent actionEvent) throws IOException {
@@ -57,7 +65,7 @@ public class homeController {
         Parent root = loader.load();
 
         //Get controller of scene2
-        changePasswordController changePasswordController = loader.getController();
+        ChangePasswordController changePasswordController = loader.getController();
         //Pass whatever data you want. You can have multiple method calls here
         changePasswordController.setServerCommunication(serverCommunication);
 

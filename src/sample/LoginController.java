@@ -32,7 +32,7 @@ public class LoginController {
         Parent root = loader.load();
 
         //Get controller of scene2
-        homeController homeController = loader.getController();
+        HomeController homeController = loader.getController();
         //Pass whatever data you want. You can have multiple method calls here
         homeController.setServerCommunication(serverCommunication);
 

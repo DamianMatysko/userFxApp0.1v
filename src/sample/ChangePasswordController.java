@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class changePasswordController {
+public class ChangePasswordController {
     public TextField newLogInText;
     public PasswordField newPasswordText;
     public Label instructionText;
@@ -25,7 +25,7 @@ public class changePasswordController {
     private static ServerCommunication serverCommunication=null;
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
-        changePasswordController.serverCommunication = serverCommunication;
+        ChangePasswordController.serverCommunication = serverCommunication;
     }
 
     public void changePassMethod(ActionEvent actionEvent) throws IOException {
@@ -45,7 +45,7 @@ public class changePasswordController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("homeSample.fxml"));
         Parent root = loader.load();
 
-        homeController homeController = loader.getController();
+        HomeController homeController = loader.getController();
         homeController.setServerCommunication(serverCommunication);
 
         Stage stage = new Stage();
