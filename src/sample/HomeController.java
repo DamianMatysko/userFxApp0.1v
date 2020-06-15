@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,8 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeController {
 
@@ -20,6 +26,13 @@ public class HomeController {
     public Text textForLogAndMes;
     public Button changePassButton;
     public Button deleteMessages;
+    public ListView listView;
+
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
+
+
 
     ChatRefresher chatRefresher = null;
     private static ServerCommunication serverCommunication = null;
@@ -47,29 +60,40 @@ public class HomeController {
 
     public void showLogs(ActionEvent actionEvent) throws IOException, InterruptedException {
 
-        chatRefresher.killThread();
-        textForLogAndMes.setText(serverCommunication.log());
+        chatRefresher.killThread();//todo ked ide prvi nema co zabit
+
+        //textForLogAndMes.setText(serverCommunication.log());
+        System.out.println(serverCommunication.log());
+        String string = serverCommunication.log();
+              JSONObject response = new JSONObject(string);
+        ObservableList listLogs = FXCollections.observableArrayList();
+
+
+        for(int i = 0 ; i < response.length() ; i++){
+          listLogs.addAll(response.getJSONObject(String.valueOf(i)));
+        }
+        listView.setItems(listLogs);
 }
 
     public void showMessages(ActionEvent actionEvent) throws IOException, InterruptedException {
         if (chatRefresher == null || chatRefresher.isInterrupted() ) {
-            chatRefresher = new ChatRefresher(textForLogAndMes, serverCommunication);
+            chatRefresher = new ChatRefresher(textForLogAndMes, serverCommunication,listView);
             chatRefresher.start();
         }
         chatRefresher.interrupt();
     }
 
     public void changePassword(ActionEvent actionEvent) throws IOException {
-        //Load second scene
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("changePasswordSample.fxml"));
         Parent root = loader.load();
 
-        //Get controller of scene2
+
         ChangePasswordController changePasswordController = loader.getController();
-        //Pass whatever data you want. You can have multiple method calls here
+
         changePasswordController.setServerCommunication(serverCommunication);
 
-        //Show scene 2 in new window
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 300, 275));
         stage.setTitle("ITBANK");
