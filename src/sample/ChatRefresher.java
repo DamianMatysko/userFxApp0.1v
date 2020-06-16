@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import org.json.JSONObject;
-
-import java.awt.*;
 import java.io.IOException;
 
 public class ChatRefresher extends Thread {
@@ -21,7 +19,6 @@ public class ChatRefresher extends Thread {
         return pauzet;
     }
 
-
     public ChatRefresher(Text text, ServerCommunication serverCommunication, ListView listView) {
         this.listView = listView;
         this.text = text;
@@ -35,10 +32,14 @@ public class ChatRefresher extends Thread {
 
     public void run() {
         System.out.println("Vlakno sa spustilo a bezi");
-        while(stop)
+        while (stop)
             if (!pauzet) {
                 try {
-                    JSONObject response = new JSONObject(serverCommunication.getMessages());
+                    if (!serverCommunication.getMessages()) {
+                        System.out.println("coskaproblem");
+                    }
+
+                    JSONObject response = new JSONObject(serverCommunication.getResponseMessage().toString());
                     ObservableList listLogs = FXCollections.observableArrayList();
                     JSONObject parse;
 
@@ -48,7 +49,6 @@ public class ChatRefresher extends Thread {
                     }
 
                     listView.setItems(listLogs);
-                    //text.setText(serverCommunication.getMessages());
                     Thread.sleep(1000);
                 } catch (InterruptedException | IOException e) {
                     e.printStackTrace();
@@ -57,17 +57,14 @@ public class ChatRefresher extends Thread {
 
             }
         System.out.println("Vlakno sa ukoncilo");
-        }
-
-
+    }
 
     public void start() {
         System.out.println("Start");
         if (t == null)
             t = new Thread(this);
-        t.start(); // spustil run()
+        t.start();
     }
-
     public void killThread() {
         stop = false;
     }

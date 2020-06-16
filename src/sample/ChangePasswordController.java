@@ -19,10 +19,7 @@ public class ChangePasswordController {
     public Button changeButton;
     public PasswordField oldPasswordField;
     public Button backButton;
-
-
-
-    private static ServerCommunication serverCommunication=null;
+    private static ServerCommunication serverCommunication = null;
 
     public void setServerCommunication(ServerCommunication serverCommunication) {
         ChangePasswordController.serverCommunication = serverCommunication;
@@ -37,8 +34,8 @@ public class ChangePasswordController {
             instructionText.setText("You must fill new password");
             return;
         }
-        serverCommunication.changePassword(oldPasswordField.getText(),newPasswordText.getText());
-        instructionText.setText("Success changed");
+        serverCommunication.changePassword(oldPasswordField.getText(), newPasswordText.getText());
+        instructionText.setText(serverCommunication.getResponseMessage().toString());
     }
 
     public void backMethod(ActionEvent actionEvent) throws IOException {

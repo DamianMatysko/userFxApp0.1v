@@ -1,11 +1,9 @@
 package sample;
 
-import netscape.javascript.JSObject;
 import org.json.JSONObject;
 
 import java.io.*;
 import java.net.*;
-
 import java.nio.charset.StandardCharsets;
 
 public class ServerCommunication {
@@ -13,6 +11,7 @@ public class ServerCommunication {
     private static String fname;
     private static String login;
     private static String token;
+    private static JSONObject responseMessage;
 
     public String getLname() {
         return lname;
@@ -30,7 +29,11 @@ public class ServerCommunication {
         return token;
     }
 
-    public String postOperation(String stringURL, String jsonInputString) throws IOException {
+    public JSONObject getResponseMessage() {
+        return responseMessage;
+    }
+
+    public boolean postOperation(String stringURL, String jsonInputString) throws IOException {
         InputStream inputStream = null;
         URL url = new URL("http://localhost:8080/" + stringURL);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -43,89 +46,81 @@ public class ServerCommunication {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
             System.out.println(con.getResponseCode() + "ASDFJHGFJKGKHO::GYIYF" + con.getErrorStream());
-            if (con.getErrorStream() != null) { //todo chane on error messages
-                System.out.println("error");
-                return con.getErrorStream().toString();
+
+            int statusCode = con.getResponseCode();
+            InputStream is = null;
+            if (!(statusCode >= 200 && statusCode < 400)) {
+                is = con.getErrorStream();
+
+                BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+                StringBuilder responseStrBuilder = new StringBuilder();
+
+                String inputStr;
+                while ((inputStr = streamReader.readLine()) != null)
+                    responseStrBuilder.append(inputStr);
+
+                System.out.println(responseStrBuilder.toString());
+
+
+                responseMessage = new JSONObject(responseStrBuilder.toString());
+                return false;
+
             }
+
+            is = con.getInputStream();
+            System.out.println(is.toString());
+            BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            StringBuilder responseStrBuilder = new StringBuilder();
+
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null)
+                responseStrBuilder.append(inputStr);
+
+            System.out.println(responseStrBuilder.toString());
+            responseMessage = new JSONObject(responseStrBuilder.toString());
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder response = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-            return response.toString();
-        }
+        return false;
     }
 
     public boolean login(String login, String password) throws IOException {
-        String responseArchiver = postOperation("login", "{login: " + login + ", password: " + password + "}");
-        System.out.println(responseArchiver);
-        if (responseArchiver.equals("User doesn't exist")) {
+        if (!postOperation("login", "{login: " + login + ", password: " + password + "}")) {
             return false;
         }
-        if (responseArchiver.equals("Too many inputs")) {
-            return false;
-        }
-        if (responseArchiver.equals("Arealy login")) {
-            return false;
-        }
-        if (responseArchiver.equals("Wrong password")) {
-            return false;
-        }
-
-
-        JSONObject jsonResponze = new JSONObject(responseArchiver);
-        this.fname = jsonResponze.getString("fname");
-        this.lname = jsonResponze.getString("lname");
-        this.login = jsonResponze.getString("login");
-        this.token = jsonResponze.getString("token");
-
-        System.out.println(responseArchiver);
+        this.fname = responseMessage.getString("fname");
+        this.lname = responseMessage.getString("lname");
+        this.login = responseMessage.getString("login");
+        this.token = responseMessage.getString("token");
         return true;
     }
 
-    public void logout() throws IOException {
-        String response = postOperation("logout?token=" + token, "{login: " + login + "}");
-        System.out.println(response);
+    public boolean logout() throws IOException {
+        return postOperation("logout?token=" + token, "{login: " + login + "}");
     }
 
-    public String log() throws IOException {
-        String response = postOperation("log?token=" + token, "{login:" + login + "}");
-        System.out.println(response);
-        return response;
+    public boolean log() throws IOException {
+        return postOperation("log?token=" + token, "{login:" + login + "}");
     }
 
-    public String getMessages() throws IOException {
-        String response = postOperation("messages?token=" + token, "{login:" + login + "}");
-        System.out.println(response);
-        return response;
+    public boolean getMessages() throws IOException {
+        return postOperation("messages?token=" + token, "{login:" + login + "}");
     }
 
-    public String sendMessage(String to, String message) throws IOException {
-        String response = postOperation("message/new?token=" + token, "{from:" + login + ", to:" + to + ", message:" + message + "}");
-        System.out.println(response);
-        return response;
+    public boolean sendMessage(String to, String message) throws IOException {
+        return postOperation("message/new?token=" + token, "{from:" + login + ", to:" + to + ", message:" + message + "}");
     }
 
-    public String signup(String login, String password, String fname, String lname) throws IOException {
-        String response = postOperation("signup", "{fname:" + fname + ", lname:" + lname + ",login: " + login + ",password: " + password + "}");
-        System.out.println(response);
-        return response;
+    public boolean signup(String login, String password, String fname, String lname) throws IOException {
+        return postOperation("signup", "{fname:" + fname + ", lname:" + lname + ",login: " + login + ",password: " + password + "}");
     }
 
-    public String changePassword(String oldpassword, String newpassword) throws IOException {
-        String response = postOperation("/changepassword?token=" + token, "{login:" + login + ", oldpassword:" + oldpassword + ", newpassword:" + newpassword + "}");
-        System.out.println(response);
-        return response;
+    public boolean changePassword(String oldpassword, String newpassword) throws IOException {
+        return postOperation("/changepassword?token=" + token, "{login:" + login + ", oldpassword:" + oldpassword + ", newpassword:" + newpassword + "}");
     }
 
-    public String deleteMessages() throws IOException {
-        String response = postOperation("delete/messages?token=" + token, "{login:" + login + "}");
-        System.out.println(response);
-        return response;
+    public boolean deleteMessages() throws IOException {
+        return postOperation("delete/messages?token=" + token, "{login:" + login + "}");
     }
 }
