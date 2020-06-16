@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class ChatRefresher extends Thread {
@@ -19,6 +20,10 @@ public class ChatRefresher extends Thread {
         return pauzet;
     }
 
+    public void setPauzet(boolean pauzet) {
+        this.pauzet = pauzet;
+    }
+
     public ChatRefresher(Text text, ServerCommunication serverCommunication, ListView listView) {
         this.listView = listView;
         this.text = text;
@@ -26,13 +31,9 @@ public class ChatRefresher extends Thread {
         System.out.println("Vlakno MyThread bolo vytvorene");
     }
 
-    public void setPauzet(boolean pauzet) {
-        this.pauzet = pauzet;
-    }
-
     public void run() {
         System.out.println("Vlakno sa spustilo a bezi");
-        while (stop)
+        while (stop) {
             if (!pauzet) {
                 try {
                     if (!serverCommunication.getMessages()) {
@@ -54,8 +55,13 @@ public class ChatRefresher extends Thread {
                     e.printStackTrace();
                 }
             } else {
-
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+        }
         System.out.println("Vlakno sa ukoncilo");
     }
 
@@ -65,6 +71,7 @@ public class ChatRefresher extends Thread {
             t = new Thread(this);
         t.start();
     }
+
     public void killThread() {
         stop = false;
     }

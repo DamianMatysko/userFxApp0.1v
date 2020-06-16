@@ -58,9 +58,16 @@ public class HomeController {
     }
 
     public void showLogs(ActionEvent actionEvent) throws IOException, InterruptedException {
-        try {
-            chatRefresher.setPauzet(true);
-        } catch (Exception e) {}
+
+        if (chatRefresher != null) {
+            if (!chatRefresher.isPauzet()) {
+                try {
+                    chatRefresher.setPauzet(true);
+                } catch (Exception e) {
+                }
+            }
+        }
+
         if (!serverCommunication.log()) {
             textForLogAndMes.setText(serverCommunication.getResponseMessage().toString());
         }
@@ -80,7 +87,9 @@ public class HomeController {
             chatRefresher = new ChatRefresher(textForLogAndMes, serverCommunication, listView);
             chatRefresher.start();
         }
-        chatRefresher.setPauzet(false);
+        if (!chatRefresher.isPauzet()) {
+            chatRefresher.setPauzet(false);
+        }
     }
 
     public void changePassword(ActionEvent actionEvent) throws IOException {

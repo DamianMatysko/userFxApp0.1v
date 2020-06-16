@@ -1,7 +1,6 @@
 package sample;
 
 import org.json.JSONObject;
-
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -45,7 +44,6 @@ public class ServerCommunication {
         try (OutputStream os = con.getOutputStream()) {
             byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
-            System.out.println(con.getResponseCode() + "ASDFJHGFJKGKHO::GYIYF" + con.getErrorStream());
 
             int statusCode = con.getResponseCode();
             InputStream is = null;
@@ -59,16 +57,13 @@ public class ServerCommunication {
                 while ((inputStr = streamReader.readLine()) != null)
                     responseStrBuilder.append(inputStr);
 
-                System.out.println(responseStrBuilder.toString());
-
 
                 responseMessage = new JSONObject(responseStrBuilder.toString());
                 return false;
-
             }
 
             is = con.getInputStream();
-            System.out.println(is.toString());
+
             BufferedReader streamReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             StringBuilder responseStrBuilder = new StringBuilder();
 
@@ -76,7 +71,7 @@ public class ServerCommunication {
             while ((inputStr = streamReader.readLine()) != null)
                 responseStrBuilder.append(inputStr);
 
-            System.out.println(responseStrBuilder.toString());
+
             responseMessage = new JSONObject(responseStrBuilder.toString());
             return true;
         } catch (IOException e) {
