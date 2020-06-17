@@ -30,7 +30,8 @@ public class registrationController {
             return;
         }
         if (!serverCommunication.signup(logInText.getText(), passwordText.getText(), firstnameField.getText(), lastnameField.getText())) {
-            instructionText.setText(serverCommunication.getResponseMessage().toString());
+            //instructionText.setText(serverCommunication.getResponseMessage().toString());
+            instructionText.setText(serverCommunication.getResponseMessage().getString("error"));
             return;
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginSample.fxml"));

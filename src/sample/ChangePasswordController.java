@@ -34,8 +34,10 @@ public class ChangePasswordController {
             instructionText.setText("You must fill new password");
             return;
         }
-        serverCommunication.changePassword(oldPasswordField.getText(), newPasswordText.getText());
-        instructionText.setText(serverCommunication.getResponseMessage().toString());
+        if (!serverCommunication.changePassword(oldPasswordField.getText(), newPasswordText.getText())){
+            instructionText.setText(serverCommunication.getResponseMessage().getString("error"));
+        }
+        instructionText.setText(serverCommunication.getResponseMessage().getString("success"));
     }
 
     public void backMethod(ActionEvent actionEvent) throws IOException {

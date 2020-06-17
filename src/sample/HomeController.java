@@ -52,9 +52,11 @@ public class HomeController {
 
     public void sendButton(ActionEvent actionEvent) throws IOException {
         if (!serverCommunication.sendMessage(toUserField.getText(), messageField.getText())) {
-            consoleText.setText(serverCommunication.getResponseMessage().toString());
+            //consoleText.setText(serverCommunication.getResponseMessage().toString());
+            consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
         }
-        consoleText.setText(serverCommunication.getResponseMessage().toString());
+        //consoleText.setText(serverCommunication.getResponseMessage().toString());
+        consoleText.setText(serverCommunication.getResponseMessage().getString("success"));
     }
 
     public void showLogs(ActionEvent actionEvent) throws IOException, InterruptedException {
@@ -69,7 +71,8 @@ public class HomeController {
         }
 
         if (!serverCommunication.log()) {
-            textForLogAndMes.setText(serverCommunication.getResponseMessage().toString());
+            //textForLogAndMes.setText(serverCommunication.getResponseMessage().toString());
+            consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
         }
         JSONObject response = new JSONObject(serverCommunication.getResponseMessage().toString());
         ObservableList listLogs = FXCollections.observableArrayList();
@@ -87,7 +90,7 @@ public class HomeController {
             chatRefresher = new ChatRefresher(textForLogAndMes, serverCommunication, listView);
             chatRefresher.start();
         }
-        if (!chatRefresher.isPauzet()) {
+        if (chatRefresher.isPauzet()) {
             chatRefresher.setPauzet(false);
         }
     }
@@ -109,7 +112,10 @@ public class HomeController {
     }
 
     public void deleteMesages(ActionEvent actionEvent) throws IOException {
-        serverCommunication.deleteMessages();
-        consoleText.setText(serverCommunication.getResponseMessage().toString());
+      if (!serverCommunication.deleteMessages()){
+            consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
+        }
+        consoleText.setText(serverCommunication.getResponseMessage().getString("success"));
+        //consoleText.setText(serverCommunication.getResponseMessage().toString());
     }
 }

@@ -16,13 +16,13 @@ public class LoginController {
     public PasswordField passwordText;
     public Button singupButton;
     public Button loginButton;
-    ;
     public Label instructionText;
     private static ServerCommunication serverCommunication = new ServerCommunication();
 
     public void loginMethod(ActionEvent actionEvent) throws IOException {
         if (!serverCommunication.login(logInText.getText(), passwordText.getText())) {
-            instructionText.setText(serverCommunication.getResponseMessage().toString());
+            //instructionText.setText(serverCommunication.getResponseMessage().toString());
+            instructionText.setText(serverCommunication.getResponseMessage().getString("error"));
             return;
         }
 
