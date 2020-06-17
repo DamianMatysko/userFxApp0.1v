@@ -52,10 +52,8 @@ public class HomeController {
 
     public void sendButton(ActionEvent actionEvent) throws IOException {
         if (!serverCommunication.sendMessage(toUserField.getText(), messageField.getText())) {
-            //consoleText.setText(serverCommunication.getResponseMessage().toString());
             consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
         }
-        //consoleText.setText(serverCommunication.getResponseMessage().toString());
         consoleText.setText(serverCommunication.getResponseMessage().getString("success"));
     }
 
@@ -71,7 +69,7 @@ public class HomeController {
         }
 
         if (!serverCommunication.log()) {
-            //textForLogAndMes.setText(serverCommunication.getResponseMessage().toString());
+
             consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
         }
         JSONObject response = new JSONObject(serverCommunication.getResponseMessage().toString());
@@ -116,6 +114,5 @@ public class HomeController {
             consoleText.setText(serverCommunication.getResponseMessage().getString("error"));
         }
         consoleText.setText(serverCommunication.getResponseMessage().getString("success"));
-        //consoleText.setText(serverCommunication.getResponseMessage().toString());
     }
 }

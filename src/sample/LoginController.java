@@ -21,7 +21,6 @@ public class LoginController {
 
     public void loginMethod(ActionEvent actionEvent) throws IOException {
         if (!serverCommunication.login(logInText.getText(), passwordText.getText())) {
-            //instructionText.setText(serverCommunication.getResponseMessage().toString());
             instructionText.setText(serverCommunication.getResponseMessage().getString("error"));
             return;
         }
